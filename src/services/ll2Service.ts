@@ -1,5 +1,3 @@
-import { fetchLatestLaunch } from "./spacexService";
-
 const LL2_BASE_URL = 'https://lldev.thespacedevs.com/2.2.0';
 
 export async function fetchRandomFact() {
