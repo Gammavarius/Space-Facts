@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 const BASE_URL = 'https://export.arxiv.org/api/query'
 const keysArray = ['exoplanet', 'supernova', 'black+hole', 'galaxy', 'nebula', 'pulsar', 'quasar', 'dark+matter', 'gravitational+waves'];
 
