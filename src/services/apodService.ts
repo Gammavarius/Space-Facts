@@ -1,4 +1,4 @@
-const APOD_PROXY_URL = '/.netlify/functions/apod-proxy';
+const APOD_PROXY_URL = '/api/apod-proxy';
 
 export async function fetchApod(_date?: string) {
     const url = APOD_PROXY_URL;
