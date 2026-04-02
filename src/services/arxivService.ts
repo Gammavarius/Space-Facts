@@ -1,4 +1,4 @@
-    const ARXIV_PROXY_URL = '/.netlify/fucntions/arxiv-proxy';
+    const ARXIV_PROXY_URL = '/.netlify/functions/arxiv-proxy';
 
     export async function fetchArxivFact() {
         try {
