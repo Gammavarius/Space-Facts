@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import axios from "axios";
 
 const BASE_URL = 'https://export.arxiv.org/api/query'
 const keysArray = ['exoplanet', 'supernova', 'black+hole', 'galaxy', 'nebula', 'pulsar', 'quasar', 'dark+matter', 'gravitational+waves'];
@@ -14,7 +14,7 @@ exports.handler = async (event) => {
     const url = `${BASE_URL}?search_query=all:${encodeURIComponent(key)}&start=0&max_results=1`;
 
     try {
-    const response = await fetch(url);
+    const response = await axios.get(url);
     const data = await response.text();
     
     return {
