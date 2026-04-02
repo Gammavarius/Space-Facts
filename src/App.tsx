@@ -19,6 +19,19 @@ function App() {
 
   useEffect(() => {
     const loadFact = async() => {
+      const apodData = await fetchApod();
+      if(apodData) {
+        setMainFact({
+          source: 'apod',
+          title: apodData.title,
+          description: apodData.explanation,
+          image: apodData.url,
+          date: apodData.date,
+          url: apodData.url,
+        });
+        setFactSource('apod');
+        return;
+      }
       const ll2Data = await fetchRandomFact();
       if(ll2Data) {
         setMainFact({
@@ -57,19 +70,7 @@ function App() {
         setFactSource('arxiv');
         return;
       }
-      const apodData = await fetchApod();
-      if(apodData) {
-        setMainFact({
-          source: 'apod',
-          title: apodData.title,
-          description: apodData.explanation,
-          image: apodData.url,
-          date: apodData.date,
-          url: apodData.url,
-        });
-        setFactSource('apod');
-        return;
-      }
+      
 
       setMainFact(null);
       setFactSource(null);
