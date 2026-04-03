@@ -8,72 +8,86 @@ import { fetchRandomFact, fetchLatestLl2Launch } from './services/ll2Service';
 import { fetchSpaceNews } from './services/spaceflightNewsService';
 import { fetchArxivFact } from './services/arxivService';
 import { fetchApod } from './services/apodService';
+import { translateText } from './services/translationService';
 console.log('Firebase db:', db)
 
 function App() {
   const [launch, setLaunch] = useState(null);
   const [astronauts, setAstronauts] = useState<IAstronautsResponse | null>(null);
   const [latestLl2Launch, setLatestLl2Launch] = useState(null);
-  const [factSource, setFactSource] = useState<'ll2' | 'news' | 'arxiv' | 'apod' | null>(null);
   const [mainFact, setMainFact] = useState<IMainFact | null>(null);
 
   useEffect(() => {
     const loadFact = async() => {
       const apodData = await fetchApod();
       if(apodData) {
+        const translatedTitle = await translateText(apodData.title);
+        const translatedDescription = await translateText(apodData.explanation); 
         setMainFact({
           source: 'apod',
-          title: apodData.title,
-          description: apodData.explanation,
+          titleOriginal: apodData.title,
+          title: translatedTitle,
+          descriptionOriginal: apodData.explanation,
+          description: translatedDescription,
           image: apodData.url,
           date: apodData.date,
           url: apodData.url,
         });
-        setFactSource('apod');
         return;
       }
+
       const ll2Data = await fetchRandomFact();
       if(ll2Data) {
+        const translatedTitle = await translateText(ll2Data.name);
+        const translatedDescription = await translateText(ll2Data.description);
         setMainFact({
           source: 'll2',
-          title: ll2Data.name,
-          description: ll2Data.description,
+          titleOriginal: ll2Data.name,
+          title: translatedTitle,
+          descriptionOriginal: ll2Data.description,
+          description: translatedDescription,
           image: ll2Data.feature_image,
           date: ll2Data.last_updated,
           url: ll2Data.url,
         });
-        setFactSource('ll2');
         return;
       }
+
       const newsData = await fetchSpaceNews();
       if(newsData) {
+        const translatedTitle = await translateText(newsData.title);
+        const translatedDescription = await translateText(newsData.summary);
         setMainFact({
           source: 'news',
-          title: newsData.title,
-          description: newsData.summary,
+          titleOriginal: newsData.title,
+          title: translatedTitle,
+          descriptionOriginal: newsData.summary,
+          description: translatedDescription,
           image: newsData.image_url,
           date: newsData.published_at,
           url: newsData.url,
         });
-        setFactSource('news');
         return;
       }
+
       const arxivData = await fetchArxivFact();
       if(arxivData) {
+        const translatedTitle = await translateText(arxivData.title);
+        const translatedDescription = await translateText(arxivData.summary);
         setMainFact({
           source: 'arxiv',
-          title: arxivData.title,
-          description: arxivData.summary,
+          titleOriginal: arxivData.title,
+          title: translatedTitle,
+          descriptionOriginal: arxivData.summary,
+          description: translatedDescription,
           date: arxivData.published,
           url: arxivData.id,
         });
-        setFactSource('arxiv');
         return;
       }
       
 
       setMainFact(null);
-      setFactSource(null);
     }
     loadFact();
     
@@ -104,7 +118,7 @@ function App() {
   return (
     <div style={{padding: '20px', maxWidth: '800px', margin: '0 auto'}}>
       <h1>Загадочный космос</h1>
-      <FactCard factSource={factSource} mainFact={mainFact}/>
+      <FactCard mainFact={mainFact}/>
 
       {astronauts && (
         <div>
@@ -125,24 +139,41 @@ function App() {
 }
 
 interface IFactCardProps {
-    factSource: 'll2' | 'news' | 'arxiv' | 'apod' | null;
     mainFact: IMainFact | null;
 }
 
 function FactCard ({mainFact}: IFactCardProps) {
+  const [isOriginal, setIsOriginal] = useState(false)
     if (!mainFact) return (
         <div>
-          <p>Наши космические зонды пока не вернулись с данными. Возможно, их перехватила чёрная дыра. Попробуйте обновить страницу!</p>
+          <p>Наши космические зонды пока не вернулись с данными. Возможно, их перехватила чёрная дыра. Подождите немного или попробуйте обновить страницу!</p>
         </div>
     )
     return (
       <div>
-        <h3>{mainFact.title}</h3>
-        {mainFact.image && (
-          <img src={mainFact.image} alt={mainFact.title} style={{maxWidth: '200px'}} />
-        )}
-        <p>{mainFact.description}</p>
-        <p>Дата: {new Date(mainFact.date).toLocaleDateString()}</p>
+      {!isOriginal && (
+        <div>
+          <h3>{mainFact.title}</h3>
+          {mainFact.image && (
+            <img src={mainFact.image} alt={mainFact.title} style={{maxWidth: '200px'}} />
+          )}
+          <p>{mainFact.description}</p>
+          <p>Дата: {new Date(mainFact.date).toLocaleDateString()}</p>
+          <p>Статья переведена автоматически</p>
+          <button type='button' onClick={() => setIsOriginal(!isOriginal)}>Показать оригинал</button>
+        </div>
+      )}
+      {isOriginal && (
+        <div>
+          <h3>{mainFact.titleOriginal}</h3>
+          {mainFact.image && (
+            <img src={mainFact.image} alt={mainFact.titleOriginal} style={{maxWidth: '200px'}} />
+          )}
+          <p>{mainFact.descriptionOriginal}</p>
+          <p>Date: {new Date(mainFact.date).toLocaleDateString()}</p>
+          <button type='button' onClick={() => setIsOriginal(!isOriginal)}>Показать перевод</button>
+        </div>
+      )}
       </div>
     )
 }

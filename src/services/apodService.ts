@@ -17,5 +17,6 @@ export async function fetchApod(_date?: string) {
     return data;
   } catch (error) {
     console.error('Ошибка при запросе:', error);
+    return null;
   }
 }

@@ -1,10 +1,10 @@
-const ASTROS_URL = 'http://api.open-notify.org/astros.json';
+const OPEN_NOTIFY_PROXY_URL = '/api/open-notify-proxy';
 
 export async function fetchAstronauts() {
-  console.log('Запрашиваем список космонавтов:', ASTROS_URL);
+  console.log('Запрашиваем список космонавтов:', OPEN_NOTIFY_PROXY_URL);
 
   try {
-    const response = await fetch(ASTROS_URL);
+    const response = await fetch(OPEN_NOTIFY_PROXY_URL);
     console.log('Статус ответа:', response.status);
 
     if (!response.ok) {
