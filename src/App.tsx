@@ -3,7 +3,7 @@ import { db } from './firebase/config';
 import type { IMainFact } from './types/ImainFact';
 import type { IAstronautsResponse } from './types/Iastronaut';
 import type { ILl2Launch } from './types/ILl2Launch';
-import type { ISpacexLaunch } from './types/IspaceXLaunch';
+import type { ISpacexLaunch } from './types/ISpacexLaunch';
 import { fetchLatestLaunch } from './services/spacexService';
 import { fetchAstronauts } from './services/openNotifyService';
 import { fetchRandomFact, fetchLatestLl2Launch } from './services/ll2Service';

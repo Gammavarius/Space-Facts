@@ -10,5 +10,5 @@ export interface ILl2Launch {
     launch_service_provider?: {
         name?: string;
     };
-    image?: sting;
+    image?: string;
 }
