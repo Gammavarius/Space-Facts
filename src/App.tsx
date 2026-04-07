@@ -204,9 +204,11 @@ interface IFactCardProps {
 function FactCard ({mainFact}: IFactCardProps) {
   const [isOriginal, setIsOriginal] = useState(false)
     if (!mainFact) return (
-        <div>
-          <img src='/img/black-hole.webp' alt="Чёрная дыра" className='mx-auto mb-4 rounded-lg max-w[100%]' />
-          <p className='text-gray-200 leading-relaxed mb-3'>Наши космические зонды пока не вернулись с данными. Возможно, их перехватила чёрная дыра. Подождите немного или попробуйте обновить страницу!</p>
+        <div className='bg-cover bg-center rounded-lg p-6 max-w-4xl mx-auto relative' style={{backgroundImage: "url('/img/black_hole.webp')"}}>
+          <div className='absolute inset-0 bg-black/50 rounded-lg'></div>
+          <div className='relative z-10'>
+            <p className='text-gray-100 text-lg tracking-wide leading-relaxed mb-3'>Наши космические зонды пока не вернулись с данными. Возможно, их перехватила чёрная дыра. Подождите немного или попробуйте обновить страницу!</p>
+          </div>
         </div>
     )
     return (
@@ -215,7 +217,7 @@ function FactCard ({mainFact}: IFactCardProps) {
         <div>
           <h3 className='text-xl font-bold text-white mb-3'>{mainFact.title}</h3>
           {mainFact.image && (
-            <img src={mainFact.image} alt={mainFact.title} className='max-w-[200px] h-auto mx-auto my-4 rounded lg shadow-md object-cover' />
+            <img src={mainFact.image} alt={mainFact.title} className='max-w-[300px] h-auto mx-auto my-4 rounded lg shadow-md object-cover' />
           )}
           <p className='text-gray-200 leading-relaxed mb-3'>{mainFact.description}</p>
           <p className='text-sm text-gray-300 mb-2'>Дата: {new Date(mainFact.date).toLocaleDateString()}</p>
@@ -231,7 +233,7 @@ function FactCard ({mainFact}: IFactCardProps) {
         <div>
           <h3 className='text-xl font-bold text-white mb-3'>{mainFact.titleOriginal}</h3>
           {mainFact.image && (
-            <img src={mainFact.image} alt={mainFact.titleOriginal} className='max-w-[200px] h-auto mx-auto my-4 rounded lg shadow-md object-cover' />
+            <img src={mainFact.image} alt={mainFact.titleOriginal} className='max-w-[300px] h-auto mx-auto my-4 rounded lg shadow-md object-cover' />
           )}
           <p className='text-gray-200 leading-relaxed mb-3'>{mainFact.descriptionOriginal}</p>
           <p className='text-sm text-gray-300 mb-2'>Date: {new Date(mainFact.date).toLocaleDateString()}</p>
@@ -265,14 +267,14 @@ function LaunchCard ({latestLl2Launch, launch}: ILaunchCardProps) {
                 <p className='text-gray-200 mb-1'>Дата запуска: {new Date(latestLl2Launch.net).toLocaleDateString()}</p>
                 <p className='text-gray-200 mb-1'>Корабль: {latestLl2Launch.rocket?.configuration?.name || latestLl2Launch.rocket?.name || 'тайна'}</p>
                 <p className='text-gray-200 mb-3'>Запуск осуществлялся: {latestLl2Launch.launch_service_provider?.name || 'тайна'}</p>
-                <img src={latestLl2Launch?.image} alt={latestLl2Launch.name} className='mx-auto block rounded-lg max-w-[200px] h-auto object-cover' />
+                <img src={latestLl2Launch?.image} alt={latestLl2Launch.name} className='mx-auto block rounded-lg max-w-[300px] h-auto object-cover' />
               </div>
             ) : launch ? (
               <div className='text-center'>
               <h3 className='text-xl font-semibold mb-2'>{launch.name}</h3>
               <p className='text-gray-200 mb-3'>Дата: {new Date(launch.date_utc).toLocaleDateString()}</p>
               {launch.links?.patch?.small && (
-              <img src={launch.links.patch.small} alt={launch.name} className='mx-auto block rounded-lg shadow-md max-w-[200px]' />
+              <img src={launch.links.patch.small} alt={launch.name} className='mx-auto block rounded-lg shadow-md max-w-[300px]' />
               )}
             </div>
           ):null}
