@@ -3,7 +3,7 @@ import { db } from './firebase/config';
 import type { IMainFact } from './types/ImainFact';
 import type { IAstronautsResponse } from './types/Iastronaut';
 import type { ILl2Launch } from './types/ILl2Launch';
-import type { ISpacexLaunch } from './types/ISpacexLaunch';
+import type { ISpaceXLaunch } from './types/ISpaceXLaunch';
 import { fetchLatestLaunch } from './services/spacexService';
 import { fetchAstronauts } from './services/openNotifyService';
 import { fetchRandomFact, fetchLatestLl2Launch } from './services/ll2Service';
@@ -14,7 +14,7 @@ import { translateText } from './services/translationService';
 console.log('Firebase db:', db)
 
 function App() {
-  const [launch, setLaunch] = useState<ISpacexLaunch | null>(null);
+  const [launch, setLaunch] = useState<ISpaceXLaunch | null>(null);
   const [astronauts, setAstronauts] = useState<IAstronautsResponse | null>(null);
   const [latestLl2Launch, setLatestLl2Launch] = useState<ILl2Launch | null>(null);
   const [mainFact, setMainFact] = useState<IMainFact | null>(null);
@@ -244,7 +244,7 @@ function FactCard ({mainFact}: IFactCardProps) {
 
 interface ILaunchCardProps {
   latestLl2Launch: ILl2Launch | null;
-  launch: ISpacexLaunch | null;
+  launch: ISpaceXLaunch | null;
 }
 
 function LaunchCard ({latestLl2Launch, launch}: ILaunchCardProps) {

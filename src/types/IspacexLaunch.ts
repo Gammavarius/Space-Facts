@@ -1,4 +1,4 @@
-export interface ISpacexLaunch {
+export interface ISpaceXLaunch {
     name: string;
     date_utc: string;
     links?: {
