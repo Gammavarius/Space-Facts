@@ -191,7 +191,7 @@ function App() {
         <LaunchCard latestLl2Launch={latestLl2Launch} launch={launch} />
       </div>
       <footer className='text-center text-gray-500 text-sm mt-12 pb-4'>
-        © {new Date().getFullYear()} Данные предоставлены SpaceX API, LL2, Spaceflight News, arXiv, NASA APOD.
+        © {new Date().getFullYear()} Данные предоставлены SpaceX API, LL2, Spaceflight News, arXiv API, NASA APOD, Open Notify API.
       </footer>
     </div>
   )
@@ -257,10 +257,10 @@ function LaunchCard ({latestLl2Launch, launch}: ILaunchCardProps) {
   
     return (
       <div className='bg-gray-800/70 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-gray-700 max-w-3xl mx-auto'>
-        <h2 className='text-2xl font-bold text-center mb-6'>Последние запуски в космос</h2>
+        <h2 className='text-2xl font-bold text-center mb-6 text-white'>Последние запуски в космос</h2>
           {latestLl2Launch ? (
               <div className='text-center'>
-                <h3 className='text-xl font-semibold mb-2'>{latestLl2Launch.name}</h3>
+                <h3 className='text-xl font-semibold mb-2 text-white'>{latestLl2Launch.name}</h3>
                 <p className='text-gray-200 mb-1'>Дата запуска: {new Date(latestLl2Launch.net).toLocaleDateString()}</p>
                 <p className='text-gray-200 mb-1'>Корабль: {latestLl2Launch.rocket?.configuration?.name || latestLl2Launch.rocket?.name || 'тайна'}</p>
                 <p className='text-gray-200 mb-3'>Запуск осуществлялся: {latestLl2Launch.launch_service_provider?.name || 'тайна'}</p>
