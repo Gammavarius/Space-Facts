@@ -176,12 +176,15 @@ function App() {
 
       {astronauts && (
         <div className='bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-gray-700 mt-8'>
-          <h2 className='text-xl font-bold text-center mb-4 text-white'>Сейчас на орбите: {astronauts.number} человек</h2>
+          <h2 className='text-xl font-bold text-center mb-4 text-white'>Сейчас на орбите: {astronauts.number} человек*</h2>
           <ul className='list-none pl-0 space-y-1 text-gray-200'>
             {astronauts.people.map(person => (
               <li key={person.name}>{person.name} - {person.craft}</li>
             ))}
           </ul>
+          <p className="text-xs text-gray-400 mt-2">
+            * Данные с МКС и Тяньгун. Краткосрочные миссии (например, Artemis II) не отображаются.
+          </p>
        </div>
       )}
       <div className="mt-8">
