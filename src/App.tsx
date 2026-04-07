@@ -205,7 +205,8 @@ function FactCard ({mainFact}: IFactCardProps) {
   const [isOriginal, setIsOriginal] = useState(false)
     if (!mainFact) return (
         <div>
-          <p>Наши космические зонды пока не вернулись с данными. Возможно, их перехватила чёрная дыра. Подождите немного или попробуйте обновить страницу!</p>
+          <img src='/img/black-hole.webp' alt="Чёрная дыра" className='mx-auto mb-4 rounded-lg max-w[100%]' />
+          <p className='text-gray-200 leading-relaxed mb-3'>Наши космические зонды пока не вернулись с данными. Возможно, их перехватила чёрная дыра. Подождите немного или попробуйте обновить страницу!</p>
         </div>
     )
     return (
