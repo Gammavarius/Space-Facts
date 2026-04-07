@@ -263,7 +263,7 @@ function LaunchCard ({latestLl2Launch, launch}: ILaunchCardProps) {
                 <p className='text-gray-200 mb-3'>Запуск осуществлялся: {latestLl2Launch.launch_service_provider?.name || 'тайна'}</p>
                 <img src={latestLl2Launch?.image} alt={latestLl2Launch.name} className='mx-auto block rounded-lg max-w-[200px] h-auto object-cover' />
               </div>
-            ) : (
+            ) : launch ? (
               <div className='text-center'>
               <h3 className='text-xl font-semibold mb-2'>{launch.name}</h3>
               <p className='text-gray-200 mb-3'>Дата: {new Date(launch.date_utc).toLocaleDateString()}</p>
@@ -271,7 +271,7 @@ function LaunchCard ({latestLl2Launch, launch}: ILaunchCardProps) {
               <img src={launch.links.patch.small} alt={launch.name} className='mx-auto block rounded-lg shadow-md max-w-[200px]' />
               )}
             </div>
-          )}
+          ):null}
       </div>
     );
 }
